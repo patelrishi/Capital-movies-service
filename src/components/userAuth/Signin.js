@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   CircularProgress,
@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { START_USER_LOGIN } from "../../constants/UserConstants";
 import { withRouter } from "react-router";
 import { useHistory } from "react-router-dom";
+import { useSnackbar } from "notistack";
 const useStyles = makeStyles((theme) => ({
   signinRoot: {
     boxShadow: "0px 2px 4px rgb(16 7 33 / 12%)",
@@ -61,8 +62,8 @@ const Signin = ({ setCurrentTab, login, user, userDataLoading, error }) => {
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [serverError, setServerError] = useState("");
 
+  const { enqueueSnackbar } = useSnackbar();
   const handleSubmit = (e) => {
     e.preventDefault();
     let dataError = 0;
@@ -95,11 +96,19 @@ const Signin = ({ setCurrentTab, login, user, userDataLoading, error }) => {
 
   useEffect(() => {
     if (error && userDataLoading === false) {
-      setServerError(error);
-    } else {
-      setServerError("");
+      handleAlert(error);
     }
   }, [userDataLoading]);
+
+  const handleAlert = (msg) => {
+    enqueueSnackbar(msg, {
+      variant: "error",
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "left",
+      },
+    });
+  };
   return (
     <div className={classes.signinRoot}>
       <div className={classes.signinFornm}>
@@ -130,9 +139,7 @@ const Signin = ({ setCurrentTab, login, user, userDataLoading, error }) => {
             setpassword(e.target.value);
           }}
         />
-        <Typography variant="h6" component="h6" gutterBottom>
-          {serverError}
-        </Typography>
+
         <Button
           startIcon={
             userDataLoading && <CircularProgress size={15} color="#e50914" />
@@ -150,7 +157,6 @@ const Signin = ({ setCurrentTab, login, user, userDataLoading, error }) => {
           New Here?{" "}
           <span
             onClick={() => {
-              setServerError("");
               setCurrentTab("signup");
             }}
           >

@@ -8,6 +8,7 @@ import {
 import TextFieldPurple from "../common/TextField/TextField";
 import { connect } from "react-redux";
 import { START_USER_REGISTER } from "../../constants/UserConstants";
+import { useSnackbar } from "notistack";
 const useStyles = makeStyles((theme) => ({
   signinRoot: {
     boxShadow: "0px 2px 4px rgb(16 7 33 / 12%)",
@@ -62,8 +63,8 @@ const Signup = ({ setCurrentTab, Register, user, userDataLoading, error }) => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [serverError, setServerError] = useState("");
 
+  const { enqueueSnackbar } = useSnackbar();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -115,11 +116,19 @@ const Signup = ({ setCurrentTab, Register, user, userDataLoading, error }) => {
   }, [user, userDataLoading]);
   useEffect(() => {
     if (error) {
-      setServerError(error);
-    } else {
-      setServerError("");
+      handleAlert(error);
     }
   }, [error, userDataLoading]);
+
+  const handleAlert = (msg) => {
+    enqueueSnackbar(msg, {
+      variant: "error",
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "left",
+      },
+    });
+  };
   return (
     <div className={classes.signinRoot}>
       <div className={classes.signinFornm}>
@@ -170,9 +179,6 @@ const Signup = ({ setCurrentTab, Register, user, userDataLoading, error }) => {
             setconfirmPassword(e.target.value);
           }}
         />
-        <Typography variant="h6" component="h6" gutterBottom>
-          {serverError}
-        </Typography>
         <Button
           startIcon={
             userDataLoading && <CircularProgress size={15} color="#e50914" />
@@ -190,7 +196,6 @@ const Signup = ({ setCurrentTab, Register, user, userDataLoading, error }) => {
           Already member?{" "}
           <span
             onClick={() => {
-              setServerError("");
               setCurrentTab("login");
             }}
           >

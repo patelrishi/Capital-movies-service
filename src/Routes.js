@@ -17,7 +17,7 @@ const Routes = () => {
       <Suspense fallback={"loading"}>
         <Router>
           <Switch>
-            <Route path="/auth" exact component={UserAuth} />
+            <Route path="/auth" component={UserAuth} />
             <Route path="" component={DashboardContainer} />
             {/* keet that last */}
             <Route path="*" exact component={NotFound} status={404} />

@@ -40,6 +40,21 @@ export class UserAuth extends Component {
     });
   };
 
+  componentDidMount() {
+    const { history } = this.props;
+    if (
+      window.location.pathname.split("/").at(-1) !== "login" &&
+      this.state.currentTab === "login"
+    ) {
+      history.replace(`auth/login`);
+    }
+    if (
+      window.location.pathname.split("/").at(-1) !== "signup" &&
+      this.state.currentTab === "signup"
+    ) {
+      history.replace(`auth/signup`);
+    }
+  }
   render() {
     const { classes } = this.props;
 
@@ -49,9 +64,15 @@ export class UserAuth extends Component {
           <NavBar />
           <Grid item xs={12}>
             {this.state.currentTab === "login" ? (
-              <Signin setCurrentTab={this.setCurrentTab} />
+              <Signin
+                setCurrentTab={this.setCurrentTab}
+                currentTab={this.state.currentTab}
+              />
             ) : (
-              <Signup setCurrentTab={this.setCurrentTab} />
+              <Signup
+                setCurrentTab={this.setCurrentTab}
+                currentTab={this.state.currentTab}
+              />
             )}
           </Grid>
         </Grid>

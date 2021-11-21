@@ -91,6 +91,11 @@ export default function NavBar({ currentTab, setCurrentTab, user }) {
     window.location.href = "/auth";
     handleMenuClose();
   };
+
+  const logIn = () => {
+    window.location.href = "/auth";
+    handleMenuClose();
+  };
   console.log(currentTab);
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -103,7 +108,15 @@ export default function NavBar({ currentTab, setCurrentTab, user }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={logout}>Logout</MenuItem>
+      {user?.watchList ? (
+        <MenuItem onClick={() => logout()}>
+          <p>Log Out</p>
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={() => logIn()}>
+          <p>Log In</p>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -128,9 +141,15 @@ export default function NavBar({ currentTab, setCurrentTab, user }) {
       <MenuItem onClick={() => setCurrentTab("favourites")}>
         <p>Favourites</p>
       </MenuItem>
-      <MenuItem onClick={() => logout()}>
-        <p>Log Out</p>
-      </MenuItem>
+      {user?.watchList ? (
+        <MenuItem onClick={() => logout()}>
+          <p>Log Out</p>
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={() => logIn()}>
+          <p>Log In</p>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -141,31 +160,37 @@ export default function NavBar({ currentTab, setCurrentTab, user }) {
           <Link onClick={() => (window.location.href = "/discover")}>
             <CapitalMovies />
           </Link>
-          <ButtonGroup className={classes.scoutibleButtonGroup}>
-            <Button
-              className={classNames(currentTab === "popular" && classes.active)}
-              variant="outlined"
-              onClick={() => setCurrentTab("popular")}
-            >
-              Popular
-            </Button>
-            <Button
-              className={classNames(currentTab === "latest" && classes.active)}
-              onClick={() => setCurrentTab("latest")}
-            >
-              Latest
-            </Button>
-            {user?.watchList && (
+          {window.location.pathname.includes("discover") && (
+            <ButtonGroup className={classes.scoutibleButtonGroup}>
               <Button
                 className={classNames(
-                  currentTab === "favourites" && classes.active
+                  currentTab === "popular" && classes.active
                 )}
-                onClick={() => setCurrentTab("favourites")}
+                variant="outlined"
+                onClick={() => setCurrentTab("popular")}
               >
-                Favourites
+                Popular
               </Button>
-            )}
-          </ButtonGroup>
+              <Button
+                className={classNames(
+                  currentTab === "latest" && classes.active
+                )}
+                onClick={() => setCurrentTab("latest")}
+              >
+                Latest
+              </Button>
+              {user?.watchList && (
+                <Button
+                  className={classNames(
+                    currentTab === "favourites" && classes.active
+                  )}
+                  onClick={() => setCurrentTab("favourites")}
+                >
+                  Favourites
+                </Button>
+              )}
+            </ButtonGroup>
+          )}
           <div className={classes.grow} />
 
           <div className={classes.sectionDesktop}>

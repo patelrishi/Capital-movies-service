@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Signin = ({ setCurrentTab, login, user, userDataLoading, error }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
@@ -93,9 +94,11 @@ const Signin = ({ setCurrentTab, login, user, userDataLoading, error }) => {
       window.location.href = "/discover";
     }
   }, [user, userDataLoading]);
-
   useEffect(() => {
-    if (error && userDataLoading === false) {
+    if (
+      (error && userDataLoading === false && error.includes("Invalid")) ||
+      error.includes("Network")
+    ) {
       handleAlert(error);
     }
   }, [userDataLoading]);

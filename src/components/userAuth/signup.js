@@ -115,10 +115,13 @@ const Signup = ({ setCurrentTab, Register, user, userDataLoading, error }) => {
     }
   }, [user, userDataLoading]);
   useEffect(() => {
-    if (error) {
+    if (
+      (error && userDataLoading === false && error.includes("taken")) ||
+      error.includes("Network")
+    ) {
       handleAlert(error);
     }
-  }, [error, userDataLoading]);
+  }, [userDataLoading]);
 
   const handleAlert = (msg) => {
     enqueueSnackbar(msg, {

@@ -147,7 +147,7 @@ const Dashboard = ({
             ) : user?.watchList?.length > 0 ? (
               user?.watchList?.map((elem, i) => (
                 <Grid xs={12} sm={6} md={4} lg={4}>
-                  <MovieCard elem={elem} />
+                  <MovieCard elem={elem} watchlist />
                 </Grid>
               ))
             ) : (

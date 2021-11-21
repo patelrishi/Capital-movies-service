@@ -5,7 +5,10 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 const instance = axios.create({
   baseURL: baseUrl,
   timeout: 30000, // 30 secs
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
   validateStatus: function (status) {
     return (
       (status >= 200 && status < 300) ||

@@ -8,7 +8,7 @@ import { SnackbarProvider } from "notistack";
 function App() {
   return (
     <Provider store={store}>
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider maxSnack={1}>
         <div className="App">
           <div>
             <Routes />

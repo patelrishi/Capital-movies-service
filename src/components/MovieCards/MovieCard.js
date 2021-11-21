@@ -6,24 +6,12 @@ import { START_ADD_TO_FAVOURITE } from "../../constants/MovieConstants";
 const useStyles = makeStyles((theme) => ({
   capitalMovieCardRoot: {
     margin: 10,
-    // background: "#34aff3",
-    // display: "flex",
-    // alignItems: "center",
-    // justifyContent: "space-around",
-    // minHeight: "100vh",
-
-    // width: "fit-content",
   },
 }));
-const MovieCard = ({ addTofavourite, user, elem }) => {
+const MovieCard = ({ addTofavourite, user, elem, watchlist = false }) => {
   const classes = useStyles();
 
   const addMovieToFavourite = () => {
-    // console.log(
-    //   Boolean(user?.watchList.filter((e) => e.id === elem.id).length > 0),
-    //   "card"
-    // );
-
     if (Object?.keys(user)?.length !== 0) {
       if (
         Boolean(user?.watchList.filter((e) => e.id === elem.id).length === 0)
@@ -54,9 +42,11 @@ const MovieCard = ({ addTofavourite, user, elem }) => {
           <Typography variant="p" component="p" gutterBottom wrap>
             {elem?.overview?.split("", 120)}...
           </Typography>
-          <a href="#" onClick={() => addMovieToFavourite()}>
-            Add to Wishlist
-          </a>
+          {watchlist === false && (
+            <a href="#" onClick={() => addMovieToFavourite()}>
+              Add to Wishlist
+            </a>
+          )}
         </div>
       </div>
     </div>

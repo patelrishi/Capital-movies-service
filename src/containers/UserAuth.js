@@ -10,7 +10,7 @@ import NavBar from "../components/NavBar/NavBar";
 const styles = (theme) => ({
   root: {
     height: "fit-content",
-    background: `url(${process.env.PUBLIC_URL}/png/dashboard.png)`,
+    background: `url(${process.env.PUBLIC_URL}/png/background.jpg)`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "cover",

@@ -156,7 +156,7 @@ const Dashboard = ({
                   No Movies Found
                 </Typography>
                 <img
-                  src={`${process.env.PUBLIC_URL}/png/noMovies.jpg`}
+                  src={`${process.env.PUBLIC_URL}/png/video_not_available.jpg`}
                   alt="*"
                 />
               </div>

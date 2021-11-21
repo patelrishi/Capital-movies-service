@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://staging-capital-movies.herokuapp.com/api",
   "dependencies": {
     "@fontsource/roboto": "^4.5.0",
     "@material-ui/core": "^4.12.1",

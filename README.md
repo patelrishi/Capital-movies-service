@@ -1,6 +1,4 @@
 # Capital-Movies
-
-# project URL
 https://staging-capital-movies-service.herokuapp.com/
 
 ## Features

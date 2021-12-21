@@ -3,7 +3,7 @@ https://staging-capital-movies-service.herokuapp.com/
 
 ## Features
 
-- get latest Movie List,ratings,informations
+- get latest Movie List, ratings,information  
 - add them to your favourites
 
 ### Env Variables
